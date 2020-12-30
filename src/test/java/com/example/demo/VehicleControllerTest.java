@@ -6,9 +6,8 @@ import com.example.demo.repository.VehicleRepository;
 import com.example.demo.web.VehicleController;
 import com.example.demo.web.VehicleForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,9 +25,12 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.Test;
 
-@WebMvcTest(controllers = VehicleController.class, secure = false)
-@RunWith(SpringRunner.class)
+import static org.springframework.test.util.AssertionErrors.assertTrue;
+
+@WebMvcTest(controllers = VehicleController.class)
+
 public class VehicleControllerTest {
 
     @MockBean
@@ -40,7 +42,7 @@ public class VehicleControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         given(this.vehicles.findById(1L))
                 .willReturn(Optional.of(Vehicle.builder().name("test").build()));
