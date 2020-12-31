@@ -1,17 +1,18 @@
 
 ###
-# curl -X GET http://localhost:8080/me -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUyNDY0OTI4OSwiZXhwIjoxNTI0NjUyODg5fQ.Lj1w6vPJNdJbcY6cAhO3DbkgCAqpG7lzztzUeKMyNyE"
-GET {{base_url}}/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYwOTQwMzgwNywiZXhwIjoxNjA5NDA3NDA3fQ.9OOW6G2WpxMU3PMSajFUmi5Y_o2Qb_Gh9hbrW1vTSAU
-
-
-###
 
 # curl -X POST http://localhost:8080/auth/signin -H "Content-Type:application/json" -d "{\"username\":\"user\", \"password\":\"password\"}"
 POST {{base_url}}/auth/signin
 Content-Type: application/json
 
 {"username":"user", "password":"password"}
+
+
+###
+# curl -X GET http://localhost:8080/me -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUyNDY0OTI4OSwiZXhwIjoxNTI0NjUyODg5fQ.Lj1w6vPJNdJbcY6cAhO3DbkgCAqpG7lzztzUeKMyNyE"
+GET {{base_url}}/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYwOTQxMDc4NiwiZXhwIjoxNjA5NDE0Mzg2fQ.5PApCczqK8jrH38QT97bxp5VsUAbBGogWivVf9hUmvQ
+
 
 
 ###
