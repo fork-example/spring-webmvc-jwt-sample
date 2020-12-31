@@ -4,7 +4,7 @@ import com.example.demo.domain.Brand;
 import com.example.demo.domain.Vehicle;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.web.VehicleController;
-import com.example.demo.web.VehicleForm;
+import com.example.demo.web.model.VehicleForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.any;
@@ -26,8 +24,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.Test;
-
-import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @WebMvcTest(controllers = VehicleController.class)
 

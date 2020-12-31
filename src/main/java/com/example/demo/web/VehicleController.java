@@ -2,7 +2,9 @@ package com.example.demo.web;
 
 import com.example.demo.domain.Brand;
 import com.example.demo.domain.Vehicle;
+import com.example.demo.exception.VehicleNotFoundException;
 import com.example.demo.repository.VehicleRepository;
+import com.example.demo.web.model.VehicleForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

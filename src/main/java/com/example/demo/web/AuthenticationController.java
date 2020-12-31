@@ -1,12 +1,11 @@
 package com.example.demo.web;
 
-import com.example.demo.repository.UserRepository;
 import com.example.demo.config.component.TokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.web.model.AuthenticationRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,25 +19,23 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/public")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+//    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
-    @Autowired
-    UserRepository users;
+    private final UserRepository users;
 
-    @PostMapping("/signin")
-    public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
+    @PostMapping("/login")
+    public ResponseEntity<Map<Object, Object>> signin(@RequestBody AuthenticationRequest data) {
 
         try {
             String username = data.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = tokenProvider.createToken(username, this.users.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
+            this.users.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found"));
+            String token = tokenProvider.createToken(username);
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);

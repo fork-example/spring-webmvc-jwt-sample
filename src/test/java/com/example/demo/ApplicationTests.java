@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.web.VehicleForm;
+import com.example.demo.web.model.VehicleForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
