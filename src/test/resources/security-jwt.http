@@ -1,0 +1,47 @@
+
+###
+# curl -X GET http://localhost:8080/me -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTUyNDY0OTI4OSwiZXhwIjoxNTI0NjUyODg5fQ.Lj1w6vPJNdJbcY6cAhO3DbkgCAqpG7lzztzUeKMyNyE"
+GET {{base_url}}/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYwOTQwMzgwNywiZXhwIjoxNjA5NDA3NDA3fQ.9OOW6G2WpxMU3PMSajFUmi5Y_o2Qb_Gh9hbrW1vTSAU
+
+
+###
+
+# curl -X POST http://localhost:8080/auth/signin -H "Content-Type:application/json" -d "{\"username\":\"user\", \"password\":\"password\"}"
+POST {{base_url}}/auth/signin
+Content-Type: application/json
+
+{"username":"user", "password":"password"}
+
+
+###
+
+GET {{base_url}}/v1/vehicles
+
+###
+
+GET {{base_url}}/vehicles
+
+###
+GET {{base_url}}/v1/vehicles/9
+###
+GET {{base_url}}/vehicles/9
+
+###
+POST {{base_url}}/v1/vehicles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYwOTQwMzgwNywiZXhwIjoxNjA5NDA3NDA3fQ.9OOW6G2WpxMU3PMSajFUmi5Y_o2Qb_Gh9hbrW1vTSAU
+
+{
+  "name": "bench"
+}
+
+###
+PUT {{base_url}}/v1/vehicles/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYwOTQwMzgwNywiZXhwIjoxNjA5NDA3NDA3fQ.9OOW6G2WpxMU3PMSajFUmi5Y_o2Qb_Gh9hbrW1vTSAU
+
+{
+  "name": "bench2"
+}
+
