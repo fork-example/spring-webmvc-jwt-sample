@@ -1,38 +1,32 @@
-package com.example.demo.security.jwt;
+package com.example.demo.config;
 
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
 
 @Component
-public class JwtTokenProvider {
-	
-	@Autowired JwtProperties jwtProperties;
+@RequiredArgsConstructor
+public class TokenProvider {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    
+    private final SecretProperties secretProperties;
+
+    private final UserDetailsService userDetailsService;
+
     private String secretKey;
 
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(jwtProperties.getSecretKey().getBytes());
+        secretKey = Base64.getEncoder().encodeToString(secretProperties.getSecretKey().getBytes());
     }
 
     public String createToken(String username, List<String> roles) {
@@ -41,14 +35,14 @@ public class JwtTokenProvider {
         claims.put("roles", roles);
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + jwtProperties.getValidityInMs());
+        Date validity = new Date(now.getTime() + secretProperties.getValidityInMs());
 
         return Jwts.builder()//
-            .setClaims(claims)//
-            .setIssuedAt(now)//
-            .setExpiration(validity)//
-            .signWith(SignatureAlgorithm.HS256, secretKey)//
-            .compact();
+                .setClaims(claims)//
+                .setIssuedAt(now)//
+                .setExpiration(validity)//
+                .signWith(SignatureAlgorithm.HS256, secretKey)//
+                .compact();
     }
 
     public Authentication getAuthentication(String token) {
@@ -78,7 +72,7 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
+            throw new InvalidAuthenticationException("Expired or invalid JWT token");
         }
     }
 

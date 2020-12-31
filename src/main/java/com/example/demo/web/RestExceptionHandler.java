@@ -1,6 +1,6 @@
 package com.example.demo.web;
 
-import com.example.demo.security.jwt.InvalidJwtAuthenticationException;
+import com.example.demo.config.InvalidAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,13 +16,13 @@ import static org.springframework.http.ResponseEntity.status;
 public class RestExceptionHandler {
 
     @ExceptionHandler(value = {VehicleNotFoundException.class})
-    public ResponseEntity vehicleNotFound(VehicleNotFoundException ex, WebRequest request) {
+    public ResponseEntity<Void> vehicleNotFound(VehicleNotFoundException ex, WebRequest request) {
         log.debug("handling VehicleNotFoundException...");
         return notFound().build();
     }
 
-    @ExceptionHandler(value = {InvalidJwtAuthenticationException.class})
-    public ResponseEntity invalidJwtAuthentication(InvalidJwtAuthenticationException ex, WebRequest request) {
+    @ExceptionHandler(value = {InvalidAuthenticationException.class})
+    public ResponseEntity<Void> invalidJwtAuthentication(InvalidAuthenticationException ex, WebRequest request) {
         log.debug("handling InvalidJwtAuthenticationException...");
         return status(UNAUTHORIZED).build();
     }
