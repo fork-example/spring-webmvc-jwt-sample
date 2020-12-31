@@ -49,6 +49,7 @@ public class TokenProvider {
 
         }  catch (JwtException | IllegalArgumentException e) {
             throw new NonceExpiredException("token invalid or expired");
+//            throw new InvalidAuthenticationException("token invalid or expired");
 
         }
     }
@@ -73,8 +74,7 @@ public class TokenProvider {
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             throw new NonceExpiredException("token invalid or expired");
-
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//            throw new InvalidAuthenticationException("token invalid or expired");
         }
     }
 

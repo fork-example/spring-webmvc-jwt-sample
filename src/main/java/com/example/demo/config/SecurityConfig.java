@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,15 +17,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @Configuration
 @RequiredArgsConstructor
@@ -83,9 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(forbiddenEntryPoint())
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class);
-//                .addFilterBefore(new TokenAuthenticationFilter2(tokenProvider), UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//                .addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class);
         //@formatter:on
     }
 
@@ -94,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(PROTECTED_URLS, tokenProvider, userDetailsService);
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationSuccessHandler(successHandler());
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler());
         return filter;
     }
     @Bean
@@ -117,9 +115,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationEntryPoint forbiddenEntryPoint() {
-        return new HttpStatusEntryPoint(FORBIDDEN);
+//        return new InvalidAuthenticationEntryPoint();
+        return new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
     }
 
-
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler(){
+        return new CustomAuthenticationFailureHandler();
+    }
 }
 
