@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class TokenAuthenticationFilter extends GenericFilterBean {
 
-    private TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     public TokenAuthenticationFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
