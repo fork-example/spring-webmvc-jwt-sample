@@ -1,12 +1,15 @@
-package com.example.demo.config;
+package com.example.demo.config.component;
 
+import com.example.demo.config.SecretProperties;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +75,7 @@ public class TokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new InvalidAuthenticationException("Expired or invalid JWT token");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 

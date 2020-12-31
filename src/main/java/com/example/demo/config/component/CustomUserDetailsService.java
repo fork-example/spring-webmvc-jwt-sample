@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.component;
 
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

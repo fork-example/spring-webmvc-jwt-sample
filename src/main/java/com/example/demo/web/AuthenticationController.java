@@ -1,7 +1,7 @@
 package com.example.demo.web;
 
 import com.example.demo.repository.UserRepository;
-import com.example.demo.config.TokenProvider;
+import com.example.demo.config.component.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

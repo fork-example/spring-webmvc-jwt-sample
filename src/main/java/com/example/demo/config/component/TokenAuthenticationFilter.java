@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.config.component;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
